@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-class Study {
+class Answer {
     public static void main(String args[]) {
         int n, m, cardNum[], sum = 0;
 
