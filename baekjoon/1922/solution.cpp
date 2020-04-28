@@ -31,7 +31,6 @@ void union_set(int a, int b, Disjoint *set) {
             union_set(set[b].root, a, set);
         }
         set[b].root = a;
-
     }
 }
 
