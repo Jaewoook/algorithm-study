@@ -63,5 +63,11 @@
         "type_traits": "cpp",
         "typeinfo": "cpp",
         "unordered_map": "cpp"
+    },
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
     }
 }

@@ -1,8 +1,33 @@
 {
     "tasks": [
         {
+            "label": "Java Build",
             "type": "shell",
-            "label": "C++ Build",
+            "command": "javac",
+            "args": [
+                "${file}"
+            ],
+            "group": {
+                "kind": "build"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Java Run active file",
+            "type": "shell",
+            "command": "java",
+            "args": [
+                "Main"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "C++ Build active file",
+            "type": "shell",
             "command": "/usr/bin/g++",
             "args": [
                 "-g",
@@ -14,31 +39,15 @@
                 "cwd": "/usr/bin"
             },
             "group": {
-                "kind": "build",
-                "isDefault": true
+                "kind": "build"
             }
         },
         {
+            "label": "C++ Run active file",
             "type": "shell",
-            "label": "g++ build active file",
-            "command": "/usr/bin/g++",
-            "args": [
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
-            ],
-            "options": {
-                "cwd": "/usr/bin"
-            }
-        },
-        {
-            "type": "shell",
-            "label": "C++ Run",
             "command": "cd ${fileDirname} && ./${fileBasenameNoExtension}",
             "group": {
-                "kind": "test",
-                "isDefault": true
+                "kind": "test"
             }
         }
     ],
