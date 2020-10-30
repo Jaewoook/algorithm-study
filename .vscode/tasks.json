@@ -7,9 +7,7 @@
             "args": [
                 "${file}"
             ],
-            "group": {
-                "kind": "build"
-            },
+            "group": "build",
             "problemMatcher": []
         },
         {
@@ -26,6 +24,16 @@
             "problemMatcher": []
         },
         {
+            "label": "Python Run active file",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "${file}"
+            ],
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
             "label": "C++ Build active file",
             "type": "shell",
             "command": "/usr/bin/g++",
@@ -38,17 +46,15 @@
             "options": {
                 "cwd": "/usr/bin"
             },
-            "group": {
-                "kind": "build"
-            }
+            "group": "build",
+            "problemMatcher": []
         },
         {
             "label": "C++ Run active file",
             "type": "shell",
             "command": "cd ${fileDirname} && ./${fileBasenameNoExtension}",
-            "group": {
-                "kind": "test"
-            }
+            "group": "test",
+            "problemMatcher": []
         }
     ],
     "version": "2.0.0"
