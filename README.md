@@ -1,14 +1,16 @@
-# algorithm study source archive
+# algorithm study solution archive
 
-## Languages
+This is an archive repository contains PS solutions.
 
-- C++
-- C
+## Languages used to write solution
+
+- C / C++
 - Java
 - Python
-- Javascript
+- JavaScript (TypeScript)
+- Go
 
-## Sites
+## Online Judge Profile
 
-- [baekjoon](https://acmicpc.net)
-- [codeforces](https://codeforces.com)
+- [Baekjoon Online Judge](https://acmicpc.net/user/ajw4586)
+- [Codeforces](https://codeforces.com/profile/ahnjaewook)
