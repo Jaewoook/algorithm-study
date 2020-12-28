@@ -62,7 +62,11 @@
         "tuple": "cpp",
         "type_traits": "cpp",
         "typeinfo": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "list": "cpp",
+        "__tree": "cpp",
+        "map": "cpp",
+        "set": "cpp"
     },
     "files.exclude": {
         "**/.classpath": true,

@@ -11,7 +11,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Java Run active file",
+            "label": "Java Run current file",
             "type": "shell",
             "command": "java",
             "args": [
@@ -24,7 +24,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Python Run active file",
+            "label": "Python Run current file",
             "type": "shell",
             "command": "python3",
             "args": [
@@ -34,7 +34,7 @@
             "problemMatcher": []
         },
         {
-            "label": "C++ Build active file",
+            "label": "C++ Build current file",
             "type": "shell",
             "command": "/usr/bin/g++",
             "args": [
@@ -50,9 +50,33 @@
             "problemMatcher": []
         },
         {
-            "label": "C++ Run active file",
+            "label": "C++ Run current file",
             "type": "shell",
             "command": "cd ${fileDirname} && ./${fileBasenameNoExtension}",
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Go Build current file",
+            "type": "shell",
+            "command": "go",
+            "args": [
+                "build",
+                "${file}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Go Run current file",
+            "type": "shell",
+            "command": "./${fileBasenameNoExtension}",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
             "group": "test",
             "problemMatcher": []
         }
