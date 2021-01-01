@@ -41,7 +41,11 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-O2",
+                "-Wall",
+                "-lm",
+                "-std=gnu++17"
             ],
             "options": {
                 "cwd": "/usr/bin"
