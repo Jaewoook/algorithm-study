@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <vector>
 using namespace std;
-#define DIFF 2147483647
 
 int calculate_sum(const vector<vector<int>> S, vector<int> t) {
     int result = 0;
@@ -19,7 +18,11 @@ void backtracking(const vector<vector<int>> &S, vector<int> &t1, vector<int> &t2
         if (t1.size() == t2.size() && t2.size() == N / 2) {
             int t1_sum = calculate_sum(S, t1);
             int t2_sum = calculate_sum(S, t2);
-            diff = min(diff, abs(t1_sum - t2_sum));
+            if (diff < 0) {
+                diff = abs(t1_sum - t2_sum);
+            } else {
+                diff = min(diff, abs(t1_sum - t2_sum));
+            }
         }
         return;
     }
@@ -46,7 +49,7 @@ int main() {
             cin >> S[i][j];
         }
     }
-    min_diff = DIFF;
+    min_diff = -1;
     backtracking(S, t1, t2, N, 0, min_diff);
     cout << min_diff << "\n";
 
