@@ -4,6 +4,6 @@ out
 a.out*
 cmake*
 solution
-solution.dSYM
+*solution.dSYM
 *.class
 *_solution
