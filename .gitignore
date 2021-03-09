@@ -1,9 +1,10 @@
+*
+!*/
+!*.*
 .idea
 out
 .DS_Store
 a.out*
 cmake*
-solution
 *solution.dSYM
 *.class
-*_solution
