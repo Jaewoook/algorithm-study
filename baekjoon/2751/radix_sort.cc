@@ -1,25 +1,21 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
-vector<int> count_sort(vector<int> arr, int k) {
+void count_sort(int *arr, int N, int *sorted, int k) {
     int n[10] = {-1, };
-    for (auto i = arr.begin(); i != arr.end(); i++) {
-        int single = ((*i) / k) % 10;
+    for (int i = 0; i != N; i++) {
+        int single = (arr[i] / k) % 10;
         n[single]++;
     }
     for (int i = 1; i < 10; i++) {
         n[i] += n[i - 1];
     }
 
-    vector<int> sorted(arr.size());
-    for (auto i = arr.rbegin(); i != arr.rend(); i++) {
-        int single = ((*i) / k) % 10;
-        sorted[n[single]] = (*i);
+    for (auto i = N - 1; i >= 0; i--) {
+        int single = (arr[i] / k) % 10;
+        sorted[n[single]] = arr[i];
         n[single]--;
     }
-
-    return sorted;
 }
 
 int main() {
@@ -29,7 +25,8 @@ int main() {
 
     int N, max_value = 0;
     cin >> N;
-    vector<int> arr(N);
+    int *arr = new int[N];
+    int *sorted = new int[N];
     for (int i = 0; i < N; i++) {
         cin >> arr[i];
         arr[i] += 1000000;
@@ -40,13 +37,18 @@ int main() {
 
     int k = 1;
     while (k < max_value) {
-        arr = count_sort(arr, k);
+        count_sort(arr, N, sorted, k);
+        delete[] arr;
+        arr = sorted;
+        sorted = new int[N];
         k *= 10;
     }
     for (int i = 0; i < N; i++) {
         cout << arr[i] - 1000000 << "\n";
     }
 
+    delete[] arr;
+    delete[] sorted;
     return 0;
 }
 
