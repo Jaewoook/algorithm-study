@@ -51,7 +51,7 @@
                 "cwd": "/usr/bin"
             },
             "group": "build",
-            "problemMatcher": []
+            "problemMatcher": ["$gcc"]
         },
         {
             "label": "C++ Run current file",
