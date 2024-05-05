@@ -1,7 +1,8 @@
 import sys
 
 input = lambda: sys.stdin.readline().rstrip()
-print = sys.stdout.write
+print = lambda arg = '', end = '\n': sys.stdout.write(arg + end)
+debug = print
 
 def solution():
     pass
