@@ -1,11 +1,5 @@
 import sys
 
-def toInt(d: str):
-    o = ord(d)
-    if ord('0') <= o <= ord('9'):
-        return o - ord('0')
-    return o - ord('A') + 10
-
 def toAlpha(d: int):
     if d < 10:
         return chr(ord('0') + d)
@@ -39,7 +33,7 @@ for _ in range(N):
             continue
         valuable = True
         place = valueLength - 1 - i
-        order = toInt(digit)
+        order = int(digit, 36)
         diff[order] += (36 ** place) * (35 - order)
 
 diff.sort(reverse=True)
