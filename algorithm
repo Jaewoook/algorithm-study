@@ -1,0 +1,199 @@
+#!/bin/bash
+
+MODE="unknown"
+LANG="unknown"
+EXT=""
+PLATFORM=""
+PROBLEM_NUMBER=""
+PROBLEM_NAME=""
+PROBLEM_URL=""
+DATE=$(date +%F)
+
+function LANGUAGE_MAPPING {
+  case $1 in
+    c++|cpp|cc)
+      EXT="cpp"
+      ;;
+    go)
+      EXT="go"
+      ;;
+    javascript|js)
+      EXT="js"
+      ;;
+    python|py)
+      EXT="py"
+      ;;
+  esac
+}
+
+function PLATFORM_MAPPING {
+  case $1 in
+    b|baekjoon)
+      PLATFORM="baekjoon"
+      ;;
+    p|programmers)
+      PLATFORM="programmers"
+      ;;
+    l|leetcode)
+      PLATFORM="leetcode"
+      ;;
+  esac
+}
+
+function printHelp {
+  echo "Usage: algorithm [command] [platform] [options]"
+  echo ""
+  echo " Commands: create, show, commit, help"
+  echo ""
+  echo " Platforms: baekjoon, leetcode, programmers, template"
+  echo ""
+  echo " Options:"
+  echo -e "  -l, --lang, --language Specify target language"
+  echo -e "  -h, --help \t\t Show help message"
+  echo ""
+  echo "  options for create:"
+  echo -e "  -no, --number \t Specify problem number"
+  echo -e "  -n, --name \t\t Specify problem name"
+  echo -e "  -u, --url \t\t Specify problem url"
+  echo -e "  -d, --date \t\t Specify file creation date (default: today's date)"
+}
+
+function printConfig {
+  echo "MODE=${MODE}"
+  echo "LANG=${LANG}"
+  echo "EXT=${EXT}"
+  echo "PLATFORM=${PLATFORM}"
+  echo "PROBLEM_NUMBER=${PROBLEM_NUMBER}"
+  echo "PROBLEM_NAME=${PROBLEM_NAME}"
+  echo "PROBLEM_URL=${PROBLEM_URL}"
+  echo "DATE=${DATE}"
+  echo ""
+}
+
+function checkLangSupport {
+  lang=$LANG
+  LANGUAGE_MAPPING $lang
+  if [ -z $EXT ]; then
+    echo "Error: Language ${lang} is not supported!"
+    exit 1
+  fi
+}
+
+function createFile {
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      -no|--number)
+        PROBLEM_NUMBER=$2
+        shift 2
+        ;;
+      -n|--name)
+        PROBLEM_NAME=$2
+        shift 2
+        ;;
+      -u|--url)
+        PROBLEM_URL=$2
+        shift 2
+        ;;
+      -d|--date)
+        DATE=$2
+        shift 2
+        ;;
+      *)
+        echo "Error: unknown options ${1}"
+        echo ""
+        printHelp
+        exit 1
+        ;;
+    esac
+  done
+
+  printConfig
+
+  scriptPath=$(dirname $0)
+  platformPath="${scriptPath}/${PLATFORM}"
+  templateDir="${scriptPath}/templates"
+  templateFilename="${PLATFORM}.${EXT}"
+  outFilePath="${platformPath}/${PROBLEM_NUMBER}. ${PROBLEM_NAME}/solution.${EXT}"
+
+  if [ ! -d $templateDir ]; then
+    echo "Error: Directory for templates is not exist."
+    exit 1
+  fi
+
+  if [ ! -d $platformPath ]; then
+    echo "Info: Directory for platform $PLATFORM is not exist. Creating $platformPath"
+    mkdir -p $platformPath
+  fi
+
+  if [ ! -f "${templateDir}/${templateFilename}" ]; then
+    echo "Error: Template does not exist for platform $PLATFORM language $LANG in $templateFilename"
+    exit 1
+  fi
+
+  mkdir -p "${platformPath}/${PROBLEM_NUMBER}. ${PROBLEM_NAME}"
+  sed -e "s|number:|number: ${PROBLEM_NUMBER}|" \
+      -e "s|name:|name: ${PROBLEM_NAME}|" \
+      -e "s|https://leetcode.com/problems/|${PROBLEM_URL}|" \
+      "${templateDir}/${templateFilename}" > "${outFilePath}"
+
+  echo "Successfully created solution file at ${outFilePath}"
+}
+
+function showAlgorithm {
+  echo "Warning: show command not implemented yet."
+}
+
+if [[ $1 = "create" ]]; then
+  MODE="create"
+elif [[ $1 = "show" ]]; then
+  MODE="show"
+elif [ $1 = "help" ] || [ $1 = "-h" ]; then
+  printHelp
+  exit 0
+else
+  echo "Error: Unknown command $1"
+  echo ""
+  printHelp
+  exit 1
+fi
+
+shift
+
+if [ ! -z $1 ]; then
+  PLATFORM_MAPPING $1
+  if [ -z $PLATFORM ]; then
+    echo "Error: Platform $1 is not supported!"
+    echo ""
+    printHelp
+  fi
+fi
+
+shift
+
+# Parse options for command
+while [[ $# -gt 0 ]]; do
+  parseDone=false
+  case $1 in
+    -l|--lang|--language)
+      LANG=$2
+      checkLangSupport
+      shift 2
+      ;;
+    -h|--help)
+      printHelp
+      shift
+      ;;
+    *)
+      parseDone=true
+      ;;
+  esac
+  if [ $parseDone ]; then
+    break
+  fi
+done
+
+if [ $MODE = "create" ]; then
+  createFile "$@"
+elif [ $MODE = "show" ]; then
+  showAlgorithm "$@"
+fi
