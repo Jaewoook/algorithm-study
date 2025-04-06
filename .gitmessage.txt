@@ -1,0 +1,3 @@
+solve(platform): problem name
+
+- solution tag
